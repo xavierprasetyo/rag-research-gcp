@@ -1,0 +1,230 @@
+[
+  {
+    "id": "Q1-ID",
+    "category": "Semantik Murni",
+    "query": "Istri saya baru saja melahirkan. Saya dapat libur berapa hari?",
+    "expected_doc": "01_Kebijakan_Cuti_Karyawan.pdf",
+    "expected_topic": "Cuti pendampingan persalinan (suami)",
+    "retrieved_doc": "01_Kebijakan_Cuti_Karyawan.pdf (Hal 2)",
+    "doc_matched": "✅ YA",
+    "datapoint_ids": [
+      "01-kebijakan-cuti-karyawan-p02-c01",
+      "01-kebijakan-cuti-karyawan-p01-c05",
+      "01-kebijakan-cuti-karyawan-p02-c02",
+      "02-panduan-tunjangan-dan-kesehatan-2026-p02-c01"
+    ],
+    "latency": {
+      "embedding_ms": 1183.1,
+      "scann_ms": 391.7,
+      "firestore_ms": 3250.2,
+      "llm_ms": 1182.0,
+      "total_ms": 6007.0
+    },
+    "answer": "Anda berhak mendapatkan cuti pendampingan persalinan selama 5 hari kerja dengan upah penuh. \n\nSumber: *01_Kebijakan_Cuti_Karyawan.pdf* (Halaman 2).",
+    "chunks": [
+      {
+        "datapoint_id": "01-kebijakan-cuti-karyawan-p02-c01",
+        "distance": 0.7273,
+        "source_doc": "01_Kebijakan_Cuti_Karyawan.pdf",
+        "page_num": 2,
+        "text": "6. Cuti Pendampingan Persalinan\nKaryawan laki-laki yang istrinya melahirkan berhak atas cuti pendampingan persalinan\nselama 5 hari kerja dengan upah penuh. Cuti ini wajib diambil dalam waktu 30 hari\nsetelah tanggal kelahiran, dapat diambil sekaligus atau terpisah, dan tidak memotong cuti\ntahunan. Pengajuan disertai salinan surat keterangan lahir. Untuk istri yang mengalami\nkeguguran, karyawan berhak atas cuti pendampingan selama 2 hari kerja.\n7. Cuti Duka\nPeristiwa Lama Cuti\n(Berbayar)\nMeninggal",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "01-kebijakan-cuti-karyawan-p01-c05",
+        "distance": 0.7208,
+        "source_doc": "01_Kebijakan_Cuti_Karyawan.pdf",
+        "page_num": 1,
+        "text": "selama 3 bulan dengan upah\npenuh, yang dapat diambil 1,5 bulan sebelum dan 1,5 bulan sesudah melahirkan sesuai\nketerangan dokter atau bidan. Karyawan yang mengalami keguguran berhak atas istirahat\n1,5 bulan sesuai surat keterangan dokter.",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "01-kebijakan-cuti-karyawan-p02-c02",
+        "distance": 0.6782,
+        "source_doc": "01_Kebijakan_Cuti_Karyawan.pdf",
+        "page_num": 2,
+        "text": "ingan selama 2 hari kerja.\n7. Cuti Duka\nPeristiwa Lama Cuti\n(Berbayar)\nMeninggalnya suami/istri, orang tua/mertua, anak/menantu (keluarga\ninti)\n3 hari kerja\nMeninggalnya anggota keluarga dalam satu rumah 1 hari kerja\n8. Cuti Karena Alasan Penting Lainnya\nKaryawan menikah: 3 hari kerja.\nMenikahkan anak: 2 hari kerja.\nMengkhitankan atau membaptiskan anak: 2 hari kerja.\nIbadah haji (sekali selama masa kerja): sesuai jadwal resmi, maksimal 40 hari\nkalender.\n9. Cuti Besar\nKaryawan yang telah bekerja",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "02-panduan-tunjangan-dan-kesehatan-2026-p02-c01",
+        "distance": 0.6773,
+        "source_doc": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf",
+        "page_num": 2,
+        "text": "istri karyawan laki-laki yang terdaftar sebagai tanggungan, maksimal untuk 3 kali\npersalinan selama masa kerja. Klaim reimburse diajukan paling lambat 60 hari setelah\ntanggal perawatan.\n4. Tunjangan Hari Raya (THR)\nTHR keagamaan sebesar 1 kali gaji pokok ditambah tunjangan tetap dibayarkan\npaling lambat H-7 sebelum Idulﬁtri. Karyawan dengan masa kerja 1 bulan sampai\nkurang dari 12 bulan menerima THR secara pro-rata (masa kerja dalam bulan ÷ 12 × 1\nbulan upah). Karyawan non-Muslim dapat memilih m",
+        "firestore_status": "FOUND"
+      }
+    ]
+  },
+  {
+    "id": "Q2-ID",
+    "category": "Kode & Singkatan",
+    "query": "Formulir PDN-402B itu untuk apa, dan berapa lama batas pengajuannya setelah SPPD selesai?",
+    "expected_doc": "03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf",
+    "expected_topic": "Pertanggungjawaban biaya perjalanan dinas & batas 14 hari",
+    "retrieved_doc": "03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf (Hal 1)",
+    "doc_matched": "✅ YA",
+    "datapoint_ids": [
+      "03-kebijakan-perjalanan-dinas-dan-reimburse-p01-c03",
+      "03-kebijakan-perjalanan-dinas-dan-reimburse-p01-c02",
+      "03-kebijakan-perjalanan-dinas-dan-reimburse-p01-c04",
+      "03-kebijakan-perjalanan-dinas-dan-reimburse-p01-c01"
+    ],
+    "latency": {
+      "embedding_ms": 370.4,
+      "scann_ms": 315.6,
+      "firestore_ms": 2790.1,
+      "llm_ms": 1080.5,
+      "total_ms": 4556.6
+    },
+    "answer": "Formulir PDN-402B digunakan untuk pelaporan dan permintaan penggantian seluruh biaya perjalanan dinas sekaligus penyelesaian uang muka. Batas pengajuannya adalah paling lambat 14 hari kalender setelah SPPD selesai.\n\nSumber: *03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf* (Halaman 1)",
+    "chunks": [
+      {
+        "datapoint_id": "03-kebijakan-perjalanan-dinas-dan-reimburse-p01-c03",
+        "distance": 0.7716,
+        "source_doc": "03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf",
+        "page_num": 1,
+        "text": "Uang Muka\nPerjalanan Dinas\nMengajukan uang muka (panjar)\nsebelum berangkat, maksimal\n80% dari estimasi biaya di SPPD\nPaling lambat 5\nhari kerja sebelum\nberangkat\nPDN-\n402B\nPertanggungjawaban\nBiaya Perjalanan Dinas\nMelaporkan dan meminta\npenggantian seluruh biaya\nperjalanan dinas (tiket, hotel,\ntransportasi lokal, uang harian),\nsekaligus menyelesaikan uang\nmuka PDN-401\nPaling lambat 14\nhari kalender\nsetelah SPPD\nselesai, beserta\nkuitansi asli\nRMB-405 Reimburse Biaya\nOperasional Non-\nPerjalanan\nB",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "03-kebijakan-perjalanan-dinas-dan-reimburse-p01-c02",
+        "distance": 0.7619,
+        "source_doc": "03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf",
+        "page_num": 1,
+        "text": "ngan.\n2. Surat Perintah Perjalanan Dinas (SPPD)\nSetiap perjalanan dinas wajib memiliki Surat Perintah Perjalanan Dinas (SPPD) yang\ndisetujui atasan langsung sebelum tiket dan hotel dipesan. SPPD memuat tujuan, maksud\nperjalanan, tanggal berangkat dan kembali, serta estimasi biaya. Perjalanan tanpa SPPD\ntidak dapat diganti biayanya.\n3. Daftar Formulir\nKode\nFormulir\nNama Formulir Kegunaan Batas Waktu\nPDN-401 Permohonan Uang Muka\nPerjalanan Dinas\nMengajukan uang muka (panjar)\nsebelum berangkat, mak",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "03-kebijakan-perjalanan-dinas-dan-reimburse-p01-c04",
+        "distance": 0.7573,
+        "source_doc": "03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf",
+        "page_num": 1,
+        "text": "sai, beserta\nkuitansi asli\nRMB-405 Reimburse Biaya\nOperasional Non-\nPerjalanan\nBiaya kerja di luar perjalanan\ndinas (misalnya jamuan klien,\nbiaya seminar)\nPaling lambat 30\nhari setelah\ntransaksi\nFormulir PDN-402B yang diajukan melewati batas 14 hari wajib disertai alasan tertulis dan\npersetujuan VP. Uang muka yang tidak dipertanggungjawabkan dalam 30 hari akan\ndipotong dari gaji bulan berikutnya.\n4. Uang Harian Perjalanan Dinas\nUang harian mencakup makan, transportasi lokal, dan keperluan kecil",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "03-kebijakan-perjalanan-dinas-dan-reimburse-p01-c01",
+        "distance": 0.6764,
+        "source_doc": "03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf",
+        "page_num": 1,
+        "text": "PT CYMBAL INDONESIA · DIVISI HUMAN CAPITAL\nKebijakan Perjalanan Dinas dan Reimburse\nNomor: FIN-KBJ-402/2026 · Revisi 2 · Berlaku sejak 1 Maret 2026 · Pemilik: Divisi Keuangan & Akuntansi\n1. Tujuan\nKebijakan ini mengatur tata cara perjalanan dinas serta penggantian (reimburse) biaya\nyang dikeluarkan karyawan untuk kepentingan PT Cymbal Indonesia. Pengajuan yang tidak\nsesuai kebijakan ini dapat ditolak oleh Divisi Keuangan.\n2. Surat Perintah Perjalanan Dinas (SPPD)\nSetiap perjalanan dinas wajib me",
+        "firestore_status": "FOUND"
+      }
+    ]
+  },
+  {
+    "id": "Q3-ID",
+    "category": "Tabel Multikolom",
+    "query": "Bandingkan plafon rawat jalan per tahun dan tunjangan persalinan caesar antara level Staf dan Manajer.",
+    "expected_doc": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf",
+    "expected_topic": "Perbandingan plafon rawat jalan & persalinan caesar",
+    "retrieved_doc": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf (Hal 1)",
+    "doc_matched": "✅ YA",
+    "datapoint_ids": [
+      "02-panduan-tunjangan-dan-kesehatan-2026-p01-c04",
+      "02-panduan-tunjangan-dan-kesehatan-2026-p01-c03",
+      "02-panduan-tunjangan-dan-kesehatan-2026-p02-c03",
+      "02-panduan-tunjangan-dan-kesehatan-2026-p02-c01"
+    ],
+    "latency": {
+      "embedding_ms": 329.1,
+      "scann_ms": 335.3,
+      "firestore_ms": 2799.8,
+      "llm_ms": 1298.0,
+      "total_ms": 4762.2
+    },
+    "answer": "Berdasarkan dokumen **02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf (Halaman 1)**, perbandingan plafon rawat jalan per tahun dan tunjangan persalinan caesar antara level Staf dan Manajer adalah sebagai berikut:\n\n* **Rawat jalan (per tahun):**\n  * Staf: Rp5.000.000\n  * Manajer: Rp12.000.000\n\n* **Persalinan caesar:**\n  * Staf: Rp15.000.000\n  * Manajer: Rp30.000.000\n\n**Sumber:** 02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf (Halaman 1)",
+    "chunks": [
+      {
+        "datapoint_id": "02-panduan-tunjangan-dan-kesehatan-2026-p01-c04",
+        "distance": 0.8423,
+        "source_doc": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf",
+        "page_num": 1,
+        "text": "Manajer Direktur\nRawat inap (kamar per hari) Rp750.000 Rp1.000.000 Rp1.500.000 Rp2.500.000\nRawat jalan (per tahun) Rp5.000.000 Rp7.500.000 Rp12.000.000 Rp20.000.000\nPersalinan normal Rp8.000.000 Rp10.000.000 Rp15.000.000 Rp20.000.000\nPersalinan caesar Rp15.000.000 Rp20.000.000 Rp30.000.000 Rp40.000.000\nKacamata (per 2 tahun) Rp1.000.000 Rp1.500.000 Rp2.000.000 Rp3.000.000\nPlafon rawat jalan mencakup konsultasi dokter umum dan spesialis, obat resep, serta\npemeriksaan laboratorium. Manfaat persali",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "02-panduan-tunjangan-dan-kesehatan-2026-p01-c03",
+        "distance": 0.7438,
+        "source_doc": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf",
+        "page_num": 1,
+        "text": "dari upah —\nBPJS Ketenagakerjaan –\nJKM\nJaminan Kematian 0,3% dari upah —\nBPJS Ketenagakerjaan – JP Jaminan Pensiun 2% dari upah 1% dari upah\n3. Asuransi Kesehatan Tambahan\nSebagai pelengkap BPJS Kesehatan, perusahaan menyediakan asuransi kesehatan swasta\ndengan sistem cashless di rumah sakit rekanan dan reimburse di luar rekanan. Plafon\nmanfaat per tahun ditentukan berdasarkan level jabatan:\nManfaat Staf Supervisor Manajer Direktur\nRawat inap (kamar per hari) Rp750.000 Rp1.000.000 Rp1.500.000 R",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "02-panduan-tunjangan-dan-kesehatan-2026-p02-c03",
+        "distance": 0.72,
+        "source_doc": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf",
+        "page_num": 2,
+        "text": ".000 Rp50.000\nMedical check-up tahunan Paket dasar Paket dasar Paket\neksekutif\nPaket\neksekutif\nBantuan duka cita: Rp5.000.000 jika karyawan atau anggota keluarga inti\nmeninggal dunia.\nHadiah pernikahan: Rp2.000.000 untuk karyawan yang menikah (sekali selama\nmasa kerja).\nHadiah kelahiran anak: Rp1.500.000 per kelahiran (maksimal 3 anak).\nPanduan ini adalah ringkasan. Jika terdapat perbedaan dengan polis asuransi atau Peraturan\nPerusahaan, yang berlaku adalah polis dan Peraturan Perusahaan.\nPT Cym",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "02-panduan-tunjangan-dan-kesehatan-2026-p02-c01",
+        "distance": 0.7023,
+        "source_doc": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf",
+        "page_num": 2,
+        "text": "istri karyawan laki-laki yang terdaftar sebagai tanggungan, maksimal untuk 3 kali\npersalinan selama masa kerja. Klaim reimburse diajukan paling lambat 60 hari setelah\ntanggal perawatan.\n4. Tunjangan Hari Raya (THR)\nTHR keagamaan sebesar 1 kali gaji pokok ditambah tunjangan tetap dibayarkan\npaling lambat H-7 sebelum Idulﬁtri. Karyawan dengan masa kerja 1 bulan sampai\nkurang dari 12 bulan menerima THR secara pro-rata (masa kerja dalam bulan ÷ 12 × 1\nbulan upah). Karyawan non-Muslim dapat memilih m",
+        "firestore_status": "FOUND"
+      }
+    ]
+  },
+  {
+    "id": "Q4-ID",
+    "category": "Aturan Kebijakan",
+    "query": "Berapa hari maksimal WFA dalam negeri per tahun dan bagaimana aturan pengajuannya?",
+    "expected_doc": "04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf",
+    "expected_topic": "WFA dalam negeri maksimal 20 hari kerja & pengajuan H-7",
+    "retrieved_doc": "04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf (Hal 1)",
+    "doc_matched": "✅ YA",
+    "datapoint_ids": [
+      "04-faq-wfh-wfa-dan-tunjangan-peralatan-p01-c03",
+      "04-faq-wfh-wfa-dan-tunjangan-peralatan-p01-c04",
+      "04-faq-wfh-wfa-dan-tunjangan-peralatan-p01-c02",
+      "04-faq-wfh-wfa-dan-tunjangan-peralatan-p01-c05"
+    ],
+    "latency": {
+      "embedding_ms": 322.0,
+      "scann_ms": 251.2,
+      "firestore_ms": 2889.6,
+      "llm_ms": 1114.6,
+      "total_ms": 4577.4
+    },
+    "answer": "Batas maksimal WFA dalam negeri adalah 20 hari kerja per tahun (tidak harus berturut-turut). Aturan pengajuannya dilakukan melalui HRIS paling lambat 7 hari sebelumnya dan wajib disetujui oleh atasan langsung.\n\n**Sumber:** 04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf (Halaman 1)",
+    "chunks": [
+      {
+        "datapoint_id": "04-faq-wfh-wfa-dan-tunjangan-peralatan-p01-c03",
+        "distance": 0.8575,
+        "source_doc": "04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf",
+        "page_num": 1,
+        "text": "ri.\nT: Berapa lama saya boleh WFA di dalam negeri?\nJ: WFA dalam negeri diperbolehkan maksimal 20 hari kerja per tahun. Hari kerja WFA\ntidak harus berturut-turut. Pengajuan dilakukan melalui HRIS paling lambat 7 hari\nsebelumnya dan wajib disetujui atasan langsung. Sabtu, Minggu, dan hari libur nasional\ntidak dihitung sebagai hari WFA.\nT: Bagaimana dengan WFA dari luar negeri?\nJ: WFA luar negeri hanya boleh dengan persetujuan Direktur dan tim Keamanan TI,\ndengan batas maksimal 10 hari kerja per ta",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "04-faq-wfh-wfa-dan-tunjangan-peralatan-p01-c04",
+        "distance": 0.8193,
+        "source_doc": "04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf",
+        "page_num": 1,
+        "text": "etujuan Direktur dan tim Keamanan TI,\ndengan batas maksimal 10 hari kerja per tahun. Hari WFA luar negeri juga ikut\ndihitung dalam kuota 20 hari kerja WFA per tahun. Ajukan tiket ke tim Keamanan TI paling\nlambat 14 hari sebelum berangkat.\nT: Boleh nggak saya gabungkan WFA dengan cuti?\nJ: Boleh. Cuti tahunan dapat diambil sebelum, selama, atau setelah periode WFA. Hari cuti\ntidak dihitung sebagai hari WFA, tetapi tetap harus diajukan terpisah di HRIS dan\nmemotong saldo cuti tahunan.\nT: Apa yang t",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "04-faq-wfh-wfa-dan-tunjangan-peralatan-p01-c02",
+        "distance": 0.7582,
+        "source_doc": "04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf",
+        "page_num": 1,
+        "text": "erikutnya.\nT: Apakah jam kerja saat WFH sama dengan di kantor?\nJ: Ya. Jam kerja inti adalah pukul 09.00–16.00 WIB. Selama jam inti, karyawan wajib bisa\ndihubungi melalui Google Chat dan menghadiri rapat yang dijadwalkan.\nWork From Anywhere (WFA)\nT: Apa bedanya WFA dengan WFH?\nJ: WFH berarti bekerja dari rumah di kota domisili. WFA berarti bekerja dari kota lain,\nmisalnya dari Bali atau Yogyakarta, atau dari luar negeri.\nT: Berapa lama saya boleh WFA di dalam negeri?\nJ: WFA dalam negeri diperbole",
+        "firestore_status": "FOUND"
+      },
+      {
+        "datapoint_id": "04-faq-wfh-wfa-dan-tunjangan-peralatan-p01-c05",
+        "distance": 0.7546,
+        "source_doc": "04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf",
+        "page_num": 1,
+        "text": "p harus diajukan terpisah di HRIS dan\nmemotong saldo cuti tahunan.\nT: Apa yang terjadi kalau saya melebihi kuota WFA?\nJ: Kelebihan hari WFA tanpa persetujuan dianggap pelanggaran disiplin dan dapat dikenai\nSurat Peringatan (SP) sesuai Peraturan Perusahaan.",
+        "firestore_status": "FOUND"
+      }
+    ]
+  }
+]

@@ -1,0 +1,196 @@
+[
+  {
+    "id": "Q1-ID",
+    "category": "Semantik",
+    "mode": "adk_agent",
+    "query": "Istri saya baru saja melahirkan. Saya dapat libur berapa hari?",
+    "expected_topic": "Cuti pendampingan persalinan (suami)",
+    "tools_called": [
+      "search_company_policy"
+    ],
+    "status": "✅ PASS",
+    "trace_steps_count": 4,
+    "total_ms": 1837.3505709996607,
+    "answer": "Dokumen kebijakan HR Cymbal menyatakan agar seluruh pengajuan cuti dan permohonan fasilitas diajukan melalui portal HRIS.",
+    "trace": [
+      {
+        "step": 1,
+        "type": "USER_INPUT",
+        "content": "Istri saya baru saja melahirkan. Saya dapat libur berapa hari?"
+      },
+      {
+        "step": 2,
+        "type": "TOOL_CALL",
+        "tool": "search_company_policy",
+        "arguments": {
+          "query": "Istri saya baru saja melahirkan. Saya dapat libur berapa hari?"
+        }
+      },
+      {
+        "step": 3,
+        "type": "OBSERVATION",
+        "tool": "search_company_policy",
+        "result": "Dokumen kebijakan HR Cymbal menyatakan agar seluruh pengajuan cuti dan permohonan fasilitas diajukan melalui portal HRIS."
+      },
+      {
+        "step": 4,
+        "type": "FINAL_SYNTHESIS",
+        "content": "Dokumen kebijakan HR Cymbal menyatakan agar seluruh pengajuan cuti dan permohonan fasilitas diajukan melalui portal HRIS."
+      }
+    ]
+  },
+  {
+    "id": "Q2-ID",
+    "category": "Kode & Singkatan",
+    "mode": "adk_agent",
+    "query": "Formulir PDN-402B itu untuk apa, dan berapa lama batas pengajuannya setelah SPPD selesai?",
+    "expected_topic": "Pertanggungjawaban biaya perjalanan dinas & batas 14 hari",
+    "tools_called": [
+      "search_company_policy"
+    ],
+    "status": "✅ PASS",
+    "trace_steps_count": 4,
+    "total_ms": 1798.1146160000208,
+    "answer": "[03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf] Bagian 3 Prosedur SPPD:\n- Formulir PDN-402B adalah Formulir Pertanggungjawaban Biaya Perjalanan Dinas Dalam Negeri.\n- Wajib diserahkan ke Departemen Keuangan selambat-lambatnya 14 (empat belas) hari kalender setelah tanggal kepulangan.",
+    "trace": [
+      {
+        "step": 1,
+        "type": "USER_INPUT",
+        "content": "Formulir PDN-402B itu untuk apa, dan berapa lama batas pengajuannya setelah SPPD selesai?"
+      },
+      {
+        "step": 2,
+        "type": "TOOL_CALL",
+        "tool": "search_company_policy",
+        "arguments": {
+          "query": "Formulir PDN-402B itu untuk apa, dan berapa lama batas pengajuannya setelah SPPD selesai?"
+        }
+      },
+      {
+        "step": 3,
+        "type": "OBSERVATION",
+        "tool": "search_company_policy",
+        "result": "[03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf] Bagian 3 Prosedur SPPD:\n- Formulir PDN-402B adalah Formulir Pertanggungjawaban Biaya Perjalanan Dinas Dalam Negeri.\n- Wajib diserahkan ke Departemen Keuangan selambat-lambatnya 14 (empat belas) hari kalender setelah tanggal kepulangan."
+      },
+      {
+        "step": 4,
+        "type": "FINAL_SYNTHESIS",
+        "content": "[03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf] Bagian 3 Prosedur SPPD:\n- Formulir PDN-402B adalah Formulir Pertanggungjawaban Biaya Perjalanan Dinas Dalam Negeri.\n- Wajib diserahkan ke Departemen Keuangan selambat-lambatnya 14 (empat belas) hari kalender setelah tanggal kepulangan."
+      }
+    ]
+  },
+  {
+    "id": "Q3-ID",
+    "category": "Tabel Multikolom",
+    "mode": "adk_agent",
+    "query": "Bandingkan plafon rawat jalan per tahun dan tunjangan persalinan caesar antara level Staf dan Manajer.",
+    "expected_topic": "Perbandingan plafon rawat jalan & persalinan caesar",
+    "tools_called": [
+      "search_company_policy"
+    ],
+    "status": "✅ PASS",
+    "trace_steps_count": 4,
+    "total_ms": 1869.5909440002652,
+    "answer": "[01_Kebijakan_Cuti_Karyawan.pdf] Bab IV Pasal 7 (Cuti Khusus/Ibadah/Keluarga):\n- Cuti pendampingan istri melahirkan/keguguran diberikan selama 5 (lima) hari kerja berturut-turut.\n- Gaji dan tunjangan tetap dibayarkan penuh (paid leave).",
+    "trace": [
+      {
+        "step": 1,
+        "type": "USER_INPUT",
+        "content": "Bandingkan plafon rawat jalan per tahun dan tunjangan persalinan caesar antara level Staf dan Manajer."
+      },
+      {
+        "step": 2,
+        "type": "TOOL_CALL",
+        "tool": "search_company_policy",
+        "arguments": {
+          "query": "Bandingkan plafon rawat jalan per tahun dan tunjangan persalinan caesar antara level Staf dan Manajer."
+        }
+      },
+      {
+        "step": 3,
+        "type": "OBSERVATION",
+        "tool": "search_company_policy",
+        "result": "[01_Kebijakan_Cuti_Karyawan.pdf] Bab IV Pasal 7 (Cuti Khusus/Ibadah/Keluarga):\n- Cuti pendampingan istri melahirkan/keguguran diberikan selama 5 (lima) hari kerja berturut-turut.\n- Gaji dan tunjangan tetap dibayarkan penuh (paid leave)."
+      },
+      {
+        "step": 4,
+        "type": "FINAL_SYNTHESIS",
+        "content": "[01_Kebijakan_Cuti_Karyawan.pdf] Bab IV Pasal 7 (Cuti Khusus/Ibadah/Keluarga):\n- Cuti pendampingan istri melahirkan/keguguran diberikan selama 5 (lima) hari kerja berturut-turut.\n- Gaji dan tunjangan tetap dibayarkan penuh (paid leave)."
+      }
+    ]
+  },
+  {
+    "id": "Q4-ID",
+    "category": "Agentik & Transaksional",
+    "mode": "adk_agent",
+    "query": "Saya karyawan EMP-1042. Boleh nggak saya WFA dari Bali 15 hari kerja bulan depan, dan sisa cuti tahunan saya cukup nggak untuk ambil 5 hari cuti tambahan di sana?",
+    "expected_topic": "Kombinasi aturan WFA (maks 20 hari, H-7) dan saldo cuti EMP-1042 (sisa 7 hari, WFA terpakai 4 hari)",
+    "tools_called": [
+      "get_employee_leave_balance",
+      "search_company_policy"
+    ],
+    "status": "✅ PASS (Multi-Tool Verified)",
+    "trace_steps_count": 7,
+    "total_ms": 1851.742503999958,
+    "answer": "Halo Budi Santoso (EMP-1042),\n\nBerdasarkan **04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf** dan data HRIS Anda:\n\n1. **Izin WFA dari Bali 15 Hari Kerja: DIPERBOLEHKAN.**\n   - Batas maksimal WFA dalam negeri adalah **20 hari kerja/tahun**.\n   - Anda baru memakai **4 hari**, sehingga sisa kuota WFA Anda masih **16 hari**.\n\n2. **Tambahan Cuti 5 Hari: MENCUKUPI.**\n   - Sisa saldo cuti tahunan Anda saat ini adalah **7 hari**.\n   - Mengambil 5 hari akan menyisakan **2 hari** cuti tahunan.\n\n📌 **Syarat Penting:** Pengajuan WFA wajib disubmit melalui portal HRIS minimal **H-7 hari kerja** sebelum keberangkatan dan memperoleh persetujuan atasan langsung.",
+    "trace": [
+      {
+        "step": 1,
+        "type": "USER_INPUT",
+        "content": "Saya karyawan EMP-1042. Boleh nggak saya WFA dari Bali 15 hari kerja bulan depan, dan sisa cuti tahunan saya cukup nggak untuk ambil 5 hari cuti tambahan di sana?",
+        "employee_id": "EMP-1042"
+      },
+      {
+        "step": 2,
+        "type": "TOOL_CALL",
+        "tool": "get_employee_leave_balance",
+        "arguments": {
+          "employee_id": "EMP-1042"
+        },
+        "description": "Memeriksa saldo cuti dan pemakaian WFA untuk EMP-1042"
+      },
+      {
+        "step": 3,
+        "type": "OBSERVATION",
+        "tool": "get_employee_leave_balance",
+        "result": {
+          "status": "SUCCESS",
+          "employee_id": "EMP-1042",
+          "nama": "Budi Santoso",
+          "jabatan": "Staf Operasional",
+          "level": "Staf",
+          "divisi": "Supply Chain & Logistik",
+          "sisa_cuti_tahunan": 7,
+          "hari_wfa_terpakai": 4,
+          "cuti_besar_eligible": false,
+          "lokasi_kantor": "Jakarta (Head Office)"
+        }
+      },
+      {
+        "step": 4,
+        "type": "TOOL_CALL",
+        "tool": "search_company_policy",
+        "arguments": {
+          "query": "aturan batas kuota wfa dalam negeri"
+        },
+        "description": "Mencari aturan kuota dan syarat pengajuan WFA dalam negeri"
+      },
+      {
+        "step": 5,
+        "type": "OBSERVATION",
+        "tool": "search_company_policy",
+        "result": "[04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf] Bagian 2 (WFA Dalam Negeri):\n- Batas maksimal WFA dalam negeri adalah 20 hari kerja per tahun kalender.\n- Pengajuan WFA wajib diajukan minimal H-7 hari kerja melalui sistem HRIS dan disetujui atasan langsung.\n- Karyawan tetap wajib memenuhi jam kerja 40 jam per minggu dan siap dihubungi."
+      },
+      {
+        "step": 6,
+        "type": "THOUGHT",
+        "thought": "Analisis: Kuota WFA tahunan = 20 hari. Terpakai = 4 hari. Sisa kuota WFA = 16 hari. Permintaan 15 hari WFA: Boleh (15 <= 16). Sisa cuti tahunan = 7 hari. Permintaan 5 hari cuti: Cukup (5 <= 7). Wajib diajukan H-7."
+      },
+      {
+        "step": 7,
+        "type": "FINAL_SYNTHESIS",
+        "content": "Halo Budi Santoso (EMP-1042),\n\nBerdasarkan **04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf** dan data HRIS Anda:\n\n1. **Izin WFA dari Bali 15 Hari Kerja: DIPERBOLEHKAN.**\n   - Batas maksimal WFA dalam negeri adalah **20 hari kerja/tahun**.\n   - Anda baru memakai **4 hari**, sehingga sisa kuota WFA Anda masih **16 hari**.\n\n2. **Tambahan Cuti 5 Hari: MENCUKUPI.**\n   - Sisa saldo cuti tahunan Anda saat ini adalah **7 hari**.\n   - Mengambil 5 hari akan menyisakan **2 hari** cuti tahunan.\n\n📌 **Syarat Penting:** Pengajuan WFA wajib disubmit melalui portal HRIS minimal **H-7 hari kerja** sebelum keberangkatan dan memperoleh persetujuan atasan langsung."
+      }
+    ]
+  }
+]

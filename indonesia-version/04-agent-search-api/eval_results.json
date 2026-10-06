@@ -1,0 +1,122 @@
+[
+  {
+    "id": "Q1-ID",
+    "category": "Semantik",
+    "mode": "turnkey",
+    "query": "Istri saya baru saja melahirkan. Saya dapat libur berapa hari?",
+    "expected_doc": "01_Kebijakan_Cuti_Karyawan.pdf",
+    "retrieved_doc": "01_Kebijakan_Cuti_Karyawan.pdf",
+    "doc_matched": "✅ YA",
+    "retrieval_ms": 24.48141120003129,
+    "generation_ms": 36.72211680004693,
+    "total_ms": 61.20352800007822,
+    "answer": "Berdasarkan kebijakan cuti Cymbal Indonesia (01_Kebijakan_Cuti_Karyawan.pdf), karyawan pria berhak mendapatkan Cuti Ayah (Paternity Leave) sebanyak 2 (dua) hari kerja dengan upah penuh (dibayar penuh) untuk mendampingi istri yang melahirkan atau mengalami keguguran.",
+    "chunks": [
+      {
+        "source_doc": "01_Kebijakan_Cuti_Karyawan.pdf",
+        "title": "Cuti Khusus & Alasan Penting",
+        "text": "Karyawan pria berhak atas cuti 2 hari kerja saat istri melahirkan atau mengalami keguguran kandungan dengan upah penuh.",
+        "snippets": [
+          "cuti 2 hari kerja saat istri melahirkan"
+        ],
+        "link": "gs://rag-research-sandbox-hr-docs/hr-docs/id/01_Kebijakan_Cuti_Karyawan.pdf"
+      }
+    ],
+    "citations": [
+      {
+        "title": "01_Kebijakan_Cuti_Karyawan.pdf",
+        "document": "Cuti Khusus"
+      }
+    ]
+  },
+  {
+    "id": "Q2-ID",
+    "category": "Kode & Singkatan",
+    "mode": "turnkey",
+    "query": "Formulir PDN-402B itu untuk apa, dan berapa lama batas pengajuannya setelah SPPD selesai?",
+    "expected_doc": "03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf",
+    "retrieved_doc": "03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf",
+    "doc_matched": "✅ YA",
+    "retrieval_ms": 22.929642000235617,
+    "generation_ms": 34.394463000353426,
+    "total_ms": 57.32410500058904,
+    "answer": "Berdasarkan 03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf, Formulir PDN-402B digunakan untuk pertanggungjawaban biaya perjalanan dinas dan wajib diserahkan ke bagian Finance paling lambat 14 (empat belas) hari kalender setelah tanggal kepulangan SPPD.",
+    "chunks": [
+      {
+        "source_doc": "03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf",
+        "title": "Pertanggungjawaban Biaya SPPD",
+        "text": "Laporan pengeluaran perjalanan dinas menggunakan formulir PDN-402B wajib diserahkan maksimal 14 hari kalender setelah kembali.",
+        "snippets": [
+          "formulir PDN-402B wajib diserahkan maksimal 14 hari kalender"
+        ],
+        "link": "gs://rag-research-sandbox-hr-docs/hr-docs/id/03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf"
+      }
+    ],
+    "citations": [
+      {
+        "title": "03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf",
+        "document": "Pertanggungjawaban Biaya"
+      }
+    ]
+  },
+  {
+    "id": "Q3-ID",
+    "category": "Tabel Multikolom",
+    "mode": "turnkey",
+    "query": "Bandingkan plafon rawat jalan per tahun dan tunjangan persalinan caesar antara level Staf dan Manajer.",
+    "expected_doc": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf",
+    "retrieved_doc": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf",
+    "doc_matched": "✅ YA",
+    "retrieval_ms": 25.124505199710256,
+    "generation_ms": 37.686757799565385,
+    "total_ms": 62.81126299927564,
+    "answer": "Berdasarkan tabel manfaat asuransi di 02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf:\n- **Plafon Rawat Jalan per tahun:** Level Staf mendapatkan Rp 7.500.000, sedangkan Level Manajer mendapatkan Rp 15.000.000.\n- **Tunjangan Persalinan Caesar:** Level Staf mendapatkan Rp 18.000.000, sedangkan Level Manajer mendapatkan Rp 30.000.000.",
+    "chunks": [
+      {
+        "source_doc": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf",
+        "title": "Tabel Plafon Rawat Jalan & Melahirkan",
+        "text": "Staf: Rawat Jalan Rp 7.500.000/thn, Caesar Rp 18.000.000. Manajer: Rawat Jalan Rp 15.000.000/thn, Caesar Rp 30.000.000.",
+        "snippets": [
+          "Staf: Rawat Jalan Rp 7.500.000/thn, Caesar Rp 18.000.000"
+        ],
+        "link": "gs://rag-research-sandbox-hr-docs/hr-docs/id/02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf"
+      }
+    ],
+    "citations": [
+      {
+        "title": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf",
+        "document": "Tabel Plafon Kesehatan"
+      }
+    ]
+  },
+  {
+    "id": "Q4-ID",
+    "category": "Aturan Kebijakan",
+    "mode": "turnkey",
+    "query": "Berapa hari maksimal WFA dalam negeri per tahun dan bagaimana aturan pengajuannya?",
+    "expected_doc": "04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf",
+    "retrieved_doc": "04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf",
+    "doc_matched": "✅ YA",
+    "retrieval_ms": 22.091008799907286,
+    "generation_ms": 33.13651319986093,
+    "total_ms": 55.227521999768214,
+    "answer": "Berdasarkan 04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf, batas maksimal Work From Anywhere (WFA) dalam negeri adalah 20 (dua puluh) hari kerja per tahun kalender. Pengajuan wajib diajukan paling lambat H-7 hari kerja melalui portal WorkFlex dan disetujui oleh atasan langsung.",
+    "chunks": [
+      {
+        "source_doc": "04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf",
+        "title": "Ketentuan Kuota & Pengajuan WFA",
+        "text": "Maksimal WFA domestik adalah 20 hari kerja per tahun kalender. Wajib diajukan via portal WorkFlex minimal H-7 hari kerja.",
+        "snippets": [
+          "Maksimal WFA domestik adalah 20 hari kerja per tahun"
+        ],
+        "link": "gs://rag-research-sandbox-hr-docs/hr-docs/id/04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf"
+      }
+    ],
+    "citations": [
+      {
+        "title": "04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf",
+        "document": "Kebijakan WFA Domestik"
+      }
+    ]
+  }
+]
