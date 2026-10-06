@@ -79,7 +79,7 @@ The repository includes a 10-document enterprise HR policy suite in both **Indon
 ## 📂 Repository Structure
 
 ```tree
-vector-search-gcp/
+rag-research-gcp/
 ├── indonesia-version/
 │   ├── 01-vector-search-1.0/      # Scenario 1: Dedicated ScaNN Index + Firestore
 │   ├── 02-agent-retrieval/        # Scenario 2: Serverless Collections + Hybrid
