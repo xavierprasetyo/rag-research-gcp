@@ -58,7 +58,7 @@ def run_evaluation():
         category = item["category"]
         query = item["query"]
         expected_doc = item["source_doc"]
-        expected_topic = item["expected_topic"]
+        expected_topic = item.get("expected_topic", item.get("category", ""))
 
         console.print(f"[bold yellow]Menjalankan {qid} ({category})[/bold yellow]: \"{query}\"")
 

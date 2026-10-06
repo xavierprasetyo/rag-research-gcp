@@ -114,7 +114,7 @@ def generate_and_cache_embeddings(chunks: list[dict], cache_path: Path):
         cfg = types.EmbedContentConfig(output_dimensionality=EMBEDDING_DIMENSIONS)
         
         for idx, c in enumerate(missing_chunks, 1):
-            text_to_embed = f"Dokumen: {c['source_doc']} | Halaman: {c['page_num']}\n\n{c['text']}"
+            text_to_embed = f"title: {c['source_doc']} | text: {c['text']}"
             resp = client.models.embed_content(
                 model=EMBEDDING_MODEL,
                 contents=text_to_embed,

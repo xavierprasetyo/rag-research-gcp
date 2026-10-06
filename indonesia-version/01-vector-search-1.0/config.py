@@ -27,6 +27,10 @@ QUERY_PREFIX = "task: question answering | query: {query}"
 # External Chunk Store: Google Cloud Firestore
 FIRESTORE_DATABASE = "(default)"
 FIRESTORE_COLLECTION = "hr-faq-chunks-id"
+FIRESTORE_COLLECTION_EN = "hr-faq-chunks-en"
+
+# Retrieval Defaults
+TOP_K = 4
 
 # LLM Generation Model
 LLM_MODEL = "gemini-3.5-flash-lite"
@@ -34,6 +38,10 @@ LLM_LOCATION = "global"
 SYSTEM_INSTRUCTION = (
     "Jawab dalam Bahasa Indonesia yang baku dan ringkas. "
     "Sebutkan nama dokumen sumber."
+)
+SYSTEM_INSTRUCTION_EN = (
+    "You are an HR policy assistant for Cymbal Global. Answer concisely and accurately "
+    "in English based ONLY on the provided policy excerpts. Always cite the source document."
 )
 
 # Application & Networking Ports
@@ -44,6 +52,7 @@ FRONTEND_PORT = 3001
 BASE_DIR = Path(__file__).resolve().parent
 SOURCE_DOCS_DIR = BASE_DIR.parent / "source-documents"
 CHUNKS_CACHE_FILE = BASE_DIR / "chunks_cache.json"
+CHUNKS_CACHE_FILE_EN = BASE_DIR / "chunks_cache_en.json"
 
 # Chunking Parameters
 CHUNK_SIZE = 500
@@ -61,6 +70,12 @@ from shared_corpus_metadata import (
     GOLDEN_QUERIES_EN,
 )
 
+
+def get_documents_by_corpus(corpus: str = "id") -> list[dict]:
+    """Return all 10 HR policy documents for the selected corpus ('id' or 'en')."""
+    if corpus == "en":
+        return DOCUMENTS_EN
+    return DOCUMENTS_ID
+
+
 GOLDEN_QUERIES = GOLDEN_QUERIES_ID
-
-

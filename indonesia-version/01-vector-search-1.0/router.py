@@ -150,7 +150,16 @@ def process_query(req: QueryRequest):
 
     try:
         retriever = get_retriever()
-        result = retriever.generate_answer(query=req.query.strip(), top_k=req.top_k or 4)
+        corpus = req.corpus or "id"
+        result = retriever.generate_answer(
+            query=req.query.strip(),
+            top_k=req.top_k or 4,
+            corpus=corpus,
+        )
+        if "execution_mode" not in result:
+            result["execution_mode"] = (
+                "live_gcp" if result.get("is_live_vm") else "local_cache_fallback"
+            )
         return result
     except RuntimeError as re:
         logger.error("Runtime error during query: %s", re)

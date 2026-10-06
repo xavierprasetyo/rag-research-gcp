@@ -111,11 +111,15 @@ def process_query(req: QueryRequest):
 
     try:
         r = get_retriever()
+        corpus = req.corpus or "id"
         result = r.generate_answer(
             query=req.query.strip(),
-            mode=req.mode or "hybrid",
             top_k=req.top_k or 4,
+            search_mode=req.mode or "hybrid",
+            corpus=corpus,
         )
+        if "execution_mode" not in result:
+            result["execution_mode"] = getattr(r, "_last_execution_mode", "live_gcp")
         return result
     except Exception as e:
         logger.error("Error processing query: %s", e)

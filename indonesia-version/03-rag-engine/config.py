@@ -1,7 +1,8 @@
+import os
 from pathlib import Path
 
 # Google Cloud Project & Location
-PROJECT_ID = "rag-research-sandbox"
+PROJECT_ID = os.getenv("GCP_PROJECT_ID", "rag-research-sandbox")
 LOCATION = "us-central1"
 
 # GCS source (RAG Engine imports straight from the bucket)
@@ -18,12 +19,18 @@ CHUNK_OVERLAP = 100
 
 # Retrieval
 TOP_K = 4
+SIMILARITY_TOP_K = TOP_K
 
 LLM_MODEL = "gemini-3.5-flash-lite"
 LLM_LOCATION = "global"
 SYSTEM_INSTRUCTION = (
     "Jawab dalam Bahasa Indonesia yang baku dan ringkas. "
     "Sebutkan nama dokumen sumber."
+)
+SYSTEM_INSTRUCTION_EN = (
+    "You are an HR policy assistant for Cymbal Global. "
+    "Answer accurately in English based ONLY on the retrieved HR policy contexts. "
+    "Cite the source document name."
 )
 
 # Paths

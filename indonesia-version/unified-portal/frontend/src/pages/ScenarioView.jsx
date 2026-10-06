@@ -85,6 +85,9 @@ export default function ScenarioView({ scenarioId, title, subtitle, badge, apiPr
   };
 
   const chunks = result?.chunks || result?.snippets || result?.retrieved_chunks || [];
+  const execMode = result?.execution_mode || 'live_gcp';
+  const isFallbackMode =
+    execMode.toLowerCase().includes('fallback') || execMode.toLowerCase().includes('cache');
 
   return (
     <div className="space-y-8 pb-16">
@@ -343,16 +346,39 @@ export default function ScenarioView({ scenarioId, title, subtitle, badge, apiPr
       {/* Answer Section */}
       {result && (
         <div className="rounded-2xl bg-slate-800/50 border border-slate-700 p-6 space-y-4 shadow-xl">
-          <div className="flex items-center justify-between border-b border-slate-700/70 pb-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700/70 pb-3">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-amber-400" />
               Synthesized Grounded Answer
             </h2>
-            {result.citations && (
-              <span className="text-xs text-slate-400 font-mono">
-                {result.citations.length} Verified Citations
-              </span>
-            )}
+            <div className="flex items-center gap-2.5">
+              {isFallbackMode ? (
+                <span
+                  title={
+                    result.fallback_reason
+                      ? `Execution mode: ${execMode} (${result.fallback_reason})`
+                      : `Execution mode: ${execMode} — Served via local cache or simulation fallback`
+                  }
+                  className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/40 flex items-center gap-1.5"
+                >
+                  <AlertCircle className="w-3.5 h-3.5 text-amber-400" />
+                  Fallback / Local Cache Simulation ({execMode})
+                </span>
+              ) : (
+                <span
+                  title={`Execution mode: ${execMode} — Served live from Google Cloud endpoint`}
+                  className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 flex items-center gap-1.5"
+                >
+                  <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+                  Live GCP Endpoint
+                </span>
+              )}
+              {result.citations && (
+                <span className="text-xs text-slate-400 font-mono">
+                  {result.citations.length} Verified Citations
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="prose prose-invert prose-sm max-w-none text-slate-200 leading-relaxed whitespace-pre-wrap">

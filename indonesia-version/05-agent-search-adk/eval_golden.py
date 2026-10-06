@@ -22,7 +22,7 @@ def run_evaluation():
         qid = item["id"]
         category = item["category"]
         query = item["query"]
-        expected_topic = item["expected_topic"]
+        expected_topic = item.get("expected_topic", item.get("category", ""))
 
         # Default employee untuk Q4-ID adalah EMP-1042
         emp_id = "EMP-1042" if "EMP-1042" in query else None

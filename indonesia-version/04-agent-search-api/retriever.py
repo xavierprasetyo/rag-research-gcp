@@ -65,7 +65,7 @@ class AgentSearchRetriever:
                 response = self.client.search(request=request)
         except Exception as e:
             logger.warning("Error executing live Agent Search (%s); using policy knowledge base fallback", e)
-            return self._fallback_response(query, top_k, t_start, corpus=corpus)
+            return self._fallback_response(query, top_k, t_start, corpus=corpus, fallback_reason=str(e))
 
         total_ms = (time.perf_counter() - t_start) * 1000
 
@@ -134,9 +134,17 @@ class AgentSearchRetriever:
             "retrieval_ms": total_ms * 0.4,  # Estimasi pembagian komponen turnkey
             "generation_ms": total_ms * 0.6,
             "mode": "turnkey_search_answer",
+            "execution_mode": "live_gcp",
         }
 
-    def _fallback_response(self, query: str, top_k: int, t_start: float, corpus: str = "id") -> Dict[str, Any]:
+    def _fallback_response(
+        self,
+        query: str,
+        top_k: int,
+        t_start: float,
+        corpus: str = "id",
+        fallback_reason: Optional[str] = None,
+    ) -> Dict[str, Any]:
         """Menyediakan respons berakar dari korpus lokal saat Discovery Engine offline."""
         q_lower = query.lower()
         total_ms = (time.perf_counter() - t_start) * 1000
@@ -209,6 +217,8 @@ class AgentSearchRetriever:
                 "retrieval_ms": total_ms * 0.4,
                 "generation_ms": total_ms * 0.6,
                 "mode": "turnkey_search_answer_fallback",
+                "execution_mode": "fallback_simulation",
+                "fallback_reason": fallback_reason or "Discovery Engine unavailable",
             }
 
         # Indonesian Corpus
@@ -279,4 +289,6 @@ class AgentSearchRetriever:
             "retrieval_ms": total_ms * 0.4,
             "generation_ms": total_ms * 0.6,
             "mode": "turnkey_search_answer_fallback",
+            "execution_mode": "fallback_simulation",
+            "fallback_reason": fallback_reason or "Discovery Engine unavailable",
         }

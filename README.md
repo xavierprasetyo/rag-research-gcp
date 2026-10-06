@@ -10,11 +10,11 @@ A comprehensive, end-to-end benchmark and interactive portal comparing five gene
 
 | Scenario | Core GCP Technology | Architectural Paradigm | Ingestion | Retrieval & Grounding | Serving |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **S1: Vector Search 1.0** | Vertex AI Vector Search (Dedicated ScaNN Index) + Cloud Firestore | Custom DIY Infrastructure | Customer Built (PyPDF + chunker + manual embeddings) | Customer Built (ANN vector lookup + Firestore text fetch + Gemini LLM) | Customer Built (Dedicated VM nodes + custom API) |
-| **S2: Agent Retrieval** | Vertex AI Vector Search (Serverless Collections) | Serverless Vector Store | Customer Built (Push JSON DataObjects, auto-embedded by collection) | Partially Managed (Serverless dense search + custom LLM synthesis) | Customer Built (Customer hosts search/agent serving API) |
-| **S3: RAG Engine** | Vertex AI RAG Engine (`vertexai.preview.rag`) | Managed Document Corpus | Google Managed (Direct GCS sync + Layout Parser + auto-embedding) | Partially Managed Retrieval + Customer Built Generation (Retrieval-only) | Customer Built (Customer hosts search/agent serving API) |
+| **S1: Vector Search 1.0** | Vertex AI Vector Search (Dedicated ScaNN Index) + Cloud Firestore | Custom DIY Infrastructure | Customer Built (PyPDF + chunker + manual embeddings) | Customer Built (ANN vector lookup + Firestore text fetch + Gemini LLM) | Customer Built (Dedicated VM index nodes + custom app API) |
+| **S2: Agent Retrieval** | Vertex AI Vector Search 2.0 (Serverless Collections) | Serverless Vector Database | Partially Managed (Push JSON DataObjects, auto-embedded & stored by collection) | Partially Managed (Serverless dense + native BM25 keyword + RRF + custom LLM synthesis) | Customer Built (Serverless index lookup; customer hosts app API) |
+| **S3: RAG Engine** | Vertex AI RAG Engine (`vertexai.rag`) | Managed Document Corpus | Google Managed (Direct GCS sync + Layout Parser + auto-embedding) | Managed Retrieval + Customer Built Generation (Invoke Gemini separately via `VertexRagStore` model tool or manual prompt) | Customer Built (Customer hosts search/agent serving API) |
 | **S4: Agent Search API** | Google Cloud Discovery Engine | Turnkey Enterprise Search | Google Managed (DocAI OCR, table layout chunking, multi-crawlers) | Google Managed (Hybrid dense + BM25, cross-encoder, grounded summary) | Google Managed (Turnkey endpoint with global SLA) |
-| **S5: Agent ADK** | Google Agent Development Kit (ADK) + Gemini Function Calling | Autonomous Cognitive Agent | Google Managed (Enterprise DataStore + live operational SQL DB) | Google Managed (ReAct reasoning loop, tool execution, math checks) | Partially Managed (Cloud Run agent runtime with session state) |
+| **S5: Agent ADK** | Agent Search + Google Agent Development Kit (ADK) | Autonomous Cognitive Agent | Google Managed (Enterprise DataStore + live operational SQL DB) | Google Managed (ADK ReAct reasoning loop, tool execution, math checks) | Partially Managed (ADK `Runner` & session state; customer hosts agent API) |
 
 ---
 
@@ -34,7 +34,7 @@ Every modern enterprise search system follows a 10-step lifecycle, cleanly separ
 7. **Search & Relevance**: Matching user queries against stored data via dense semantic similarity and keyword algorithms.
 8. **Ranking & Optimization**: Re-ordering candidate results by relevance scoring, freshness, user signals, and business KPIs.
 9. **Grounding, Answer & Conversation**: Synthesizing retrieved contexts into natural language answers with citations and multi-turn state.
-10. **Serving**: Serving the search endpoint or agent runtime with secure authentication, low latency, and scale.
+10. **Serving**: Serving the end-to-end search or agent application API with secure authentication, low latency, and scale.
 
 ### 🎨 Responsibility Taxonomy
 - 🟢 **Google Managed**: Platform handles 100% of operational and algorithmic complexity.
@@ -45,15 +45,15 @@ Every modern enterprise search system follows a 10-step lifecycle, cleanly separ
 
 ## ⚖️ Critical Architectural Distinctions
 
-1. **Serving & Storage in Vector Search (S1 & S2):**
-   - **Serving means serving the search or agent API.** In Vector Search, serving is **NOT managed** (customer built and hosted).
-   - Only **storage is partially managed** (Google manages vector index traversal, while document text and metadata are stored in external customer databases or co-managed DataObjects).
+1. **Application Serving vs. Index Serving & Storage in Vector Search (S1 vs. S2):**
+   - **Step 10 ("Serving") measures serving the end-to-end Search or Agent Application API.** While Google serves the underlying vector lookup endpoints (dedicated Google-managed VMs in S1 `IndexEndpoint`; serverless `DataObjectSearchService` in S2), the **end-to-end RAG application API** (prompt orchestration, LLM synthesis, and HTTP gateway) is **Customer Built** in both S1 and S2.
+   - **Storage (Step 05) leaps from Partially Managed in S1 to Google Managed in S2:** S1 only indexes vector IDs (forcing customers to maintain Cloud Firestore for chunk text and metadata), whereas S2 (**Agent Retrieval / Vector Search 2.0**) stores both vectors and full JSON payloads (`DataObjects`) natively inside the serverless Collection—plus native `TextSearch` (BM25) and Reciprocal Rank Fusion (RRF).
 2. **RAG Engine vs. Agent Search API (S3 vs. S4):**
-   - **RAG Engine is a retrieval-only service.** It has **no generation capabilities** out-of-the-box. Customers must construct system prompts, invoke an LLM (such as Gemini), assemble citations, and build their own serving endpoint.
-   - **Agent Search API is turnkey.** It natively generates citation-grounded answer summaries and provides a fully hosted, scalable search endpoint with Google global SLA.
-3. **Autonomous Reasoning with Agent ADK (S5):**
+   - **Out-of-the-box, RAG Engine (`vertexai.rag`) is a corpus & retrieval service (`RagCorpus` + `retrieval_query`).** It does not generate answers on its own endpoint. To synthesize answers, the customer **must invoke the Gemini API separately**—either passing `VertexRagStore` directly to the stateless Gemini model (`models.generate_content`) as a model-level grounding source, or manually formatting prompts from `retrieval_query` chunks—and host their own application serving endpoint.
+   - **Agent Search API is turnkey.** A single call to Discovery Engine (`SearchServiceClient.search`) natively returns both ranked search results and citation-grounded answer summaries on a Google-hosted endpoint with global SLA.
+3. **Autonomous Reasoning with Agent Search + Google ADK (S5):**
    - S1 through S4 can only answer questions based on static policy documents.
-   - S5 combines policy retrieval with real-time enterprise database tools (e.g. querying employee leave balances, validating PTO requests, and performing policy math).
+   - S5 combines **Agent Search** policy retrieval with **Google ADK** out-of-the-box primitives (`Agent`, `Runner`, `InMemorySessionService`, and structured Python tools) to query live employee leave balances, validate PTO requests, and perform policy math.
 
 ---
 
@@ -62,7 +62,7 @@ Every modern enterprise search system follows a 10-step lifecycle, cleanly separ
 The repository includes a 10-document enterprise HR policy suite in both **Indonesian** and **Global English**:
 
 | # | Indonesian Policy File | Global English Policy File | Document Code | Domain |
-| :---: | :--- | :--- | :--- | :--- |
+| :---: | :--- | :--- | :---: | :--- |
 | **01** | `01_Kebijakan_Cuti_Karyawan.pdf` | `01_Global_PTO_and_Leave_Policy.pdf` | `HC-KBJ-001/2026` | Annual Leave, Paternity & Maternity |
 | **02** | `02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf` | `02_2026_Benefits_and_Healthcare_Guide.pdf` | `HC-PND-002/2026` | Health Insurance, Outpatient Plafond |
 | **03** | `03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf` | `03_Expense_and_Travel_Reimbursement_Policy.pdf` | `HC-KBJ-003/2026` | Travel Per Diems, Expense Deadlines |
@@ -93,7 +93,6 @@ rag-research-gcp/
 │   │   ├── frontend/              # TailwindCSS + Lucide + Vite interactive UI
 │   │   └── server.py              # Unified API Gateway aggregating all 5 scenarios
 │   └── Dockerfile                 # Multi-stage container for Cloud Run deployment
-├── global-version/                # Initial baseline standalone notebooks & scripts
 ├── sync_all_scenarios_expanded.py # Master sync & evaluation pipeline for 10 policies
 ├── GEMINI.md                      # Architecture notes & project memory
 └── README.md

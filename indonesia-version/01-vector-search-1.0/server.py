@@ -23,6 +23,10 @@ from config import (
     LLM_LOCATION,
     BACKEND_PORT,
     GOLDEN_QUERIES,
+    GOLDEN_QUERIES_EN,
+    DOCUMENTS_ID,
+    DOCUMENTS_EN,
+    get_documents_by_corpus,
 )
 from retriever import VS1Retriever
 from manage_index import find_index, find_endpoint, get_firestore_chunk_count
@@ -54,6 +58,7 @@ def get_retriever() -> VS1Retriever:
 class QueryRequest(BaseModel):
     query: str
     top_k: Optional[int] = 4
+    corpus: Optional[str] = "id"
 
 
 @app.get("/api/health")
@@ -124,42 +129,15 @@ def get_status():
 
 
 @app.get("/api/golden-queries")
-def get_golden_queries():
+def get_golden_queries(corpus: str = "id"):
+    if corpus == "en":
+        return {"queries": GOLDEN_QUERIES_EN}
     return {"queries": GOLDEN_QUERIES}
 
 
 @app.get("/api/documents")
-def get_documents():
-    docs = [
-        {
-            "filename": "01_Kebijakan_Cuti_Karyawan.pdf",
-            "title": "Kebijakan Cuti Karyawan",
-            "code": "HC-KBJ-011/2026",
-            "description": "Cuti tahunan bertingkat (12-18 hari), cuti bersama, cuti melahirkan (3 bulan), cuti pendampingan persalinan (5 hari kerja), dan cuti besar 1 bulan.",
-            "test_target": "Pencarian Semantik Murni (Q1-ID)",
-        },
-        {
-            "filename": "02_Panduan_Tunjangan_dan_Kesehatan_2026.pdf",
-            "title": "Panduan Tunjangan dan Kesehatan 2026",
-            "code": "HC-TNJ-002/2026",
-            "description": "Tabel manfaat plafon rawat inap, rawat jalan, persalinan normal/caesar, kacamata per level jabatan (Staf, Supervisor, Manajer, Direktur), BPJS, dan THR.",
-            "test_target": "Parsing Data Tabel Multikolom (Q3-ID)",
-        },
-        {
-            "filename": "03_Kebijakan_Perjalanan_Dinas_dan_Reimburse.pdf",
-            "title": "Kebijakan Perjalanan Dinas & Reimburse",
-            "code": "FIN-KBJ-402/2026",
-            "description": "Surat Perintah Perjalanan Dinas (SPPD), Formulir PDN-402B (batas pengajuan 14 hari kalender), uang harian wilayah I-III, dan aturan kuitansi.",
-            "test_target": "Pencarian Kata Kunci & Kode Formulir (Q2-ID)",
-        },
-        {
-            "filename": "04_FAQ_WFH_WFA_dan_Tunjangan_Peralatan.pdf",
-            "title": "FAQ WFH, WFA, dan Tunjangan Peralatan",
-            "code": "HC-FAQ-220/2026",
-            "description": "Batas WFH (2 hari/minggu), WFA dalam negeri (maksimal 20 hari kerja/tahun, pengajuan H-7), WFA luar negeri (10 hari, izin Direktur/IT), fasilitas kerja.",
-            "test_target": "Istilah Campuran & Kebijakan Hybrid (Q4-ID)",
-        },
-    ]
+def get_documents(corpus: str = "id"):
+    docs = get_documents_by_corpus(corpus)
     return {"documents": docs}
 
 
@@ -179,7 +157,11 @@ def process_query(req: QueryRequest):
 
     try:
         retriever = get_retriever()
-        result = retriever.generate_answer(query=req.query.strip(), top_k=req.top_k or 4)
+        result = retriever.generate_answer(
+            query=req.query.strip(),
+            top_k=req.top_k or 4,
+            corpus=req.corpus or "id",
+        )
         return result
     except RuntimeError as re:
         logger.error("Runtime error during query: %s", re)

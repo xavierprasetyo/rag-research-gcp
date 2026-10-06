@@ -156,11 +156,11 @@ export default function GenerativeSearchArchitecture({ onSelectScenario }) {
       scenarioMapping: {
         s1: {
           type: 'partial',
-          label: 'Partially Managed: Vector Search manages the ANN Tree-AH vector index, but customer must manage external database for text & metadata.',
+          label: 'Partially Managed: Vector Search manages the ANN Tree-AH vector index, but customer must manage external database (Firestore) for text & metadata.',
         },
         s2: {
-          type: 'partial',
-          label: 'Partially Managed: Collection stores vectors and DataObjects serverlessly, but customer manages data schema & quota tiering.',
+          type: 'managed',
+          label: 'Google Managed: Unified Serverless Collection storing both vectors and JSON payload (DataObjects) natively without an external DB.',
         },
         s3: {
           type: 'managed',
@@ -193,7 +193,7 @@ export default function GenerativeSearchArchitecture({ onSelectScenario }) {
         },
         s2: {
           type: 'customer',
-          label: 'Customer Built: Raw semantic vector lookup; no automatic intent parsing, typo tolerance, or query rewording.',
+          label: 'Customer Built: Direct semantic/keyword lookup; no automatic intent parsing, typo tolerance, or query rewording.',
         },
         s3: {
           type: 'partial',
@@ -223,7 +223,7 @@ export default function GenerativeSearchArchitecture({ onSelectScenario }) {
         },
         s2: {
           type: 'partial',
-          label: 'Partially Managed: Serverless vector search over DataObjects with basic metadata filtering (no sparse BM25).',
+          label: 'Partially Managed: Serverless Dense SemanticSearch + Native Keyword TextSearch (BM25) + metadata filtering.',
         },
         s3: {
           type: 'managed',
@@ -252,8 +252,8 @@ export default function GenerativeSearchArchitecture({ onSelectScenario }) {
           label: 'Customer Built: Nearest-neighbor cosine distance sorting only; no cross-encoder re-ranking or freshness boosting.',
         },
         s2: {
-          type: 'customer',
-          label: 'Customer Built: Raw vector distance ordering without behavioral re-ranking or cross-encoder optimization.',
+          type: 'partial',
+          label: 'Partially Managed: Supports Reciprocal Rank Fusion (RRF) across dense + keyword results; no cross-encoder re-ranker.',
         },
         s3: {
           type: 'partial',
@@ -287,7 +287,7 @@ export default function GenerativeSearchArchitecture({ onSelectScenario }) {
         },
         s3: {
           type: 'customer',
-          label: 'Customer Built (Retrieval-Only Engine): RAG Engine has NO generation capability. Customer must build prompt, invoke LLM, and construct answer.',
+          label: 'Customer Built: RAG Engine itself only manages & retrieves corpus chunks. Customer must invoke the Gemini API separately (passing VertexRagStore directly to the model as a grounding source, or manually prompting with retrieval_query chunks).',
         },
         s4: {
           type: 'managed',
@@ -303,21 +303,21 @@ export default function GenerativeSearchArchitecture({ onSelectScenario }) {
       id: 'serving',
       stepNum: '10',
       title: 'Serving',
-      processDefinition: 'Serving the search or the agent API with secure authentication, low latency, and auto-scaling',
+      processDefinition: 'Serving the end-to-end search or agent application API with secure authentication, low latency, and scale',
       question: 'Will my serving API scale to demand? Is my infra secure?',
       icon: Server,
       scenarioMapping: {
         s1: {
           type: 'customer',
-          label: 'Customer Built: Serving the search/agent is customer-built. Customer deploys dedicated VM nodes and hosts the search serving API.',
+          label: 'Customer Built: Google serves the VM-backed index endpoint, but customer builds and hosts the end-to-end search/RAG API.',
         },
         s2: {
           type: 'customer',
-          label: 'Customer Built: Serving the search/agent is customer-built. Customer develops, deploys, and scales the application search API.',
+          label: 'Customer Built: Google serves the serverless collection lookup, but customer develops, deploys, and scales the application search API.',
         },
         s3: {
           type: 'customer',
-          label: 'Customer Built: Does not serve the search right away. Customer must build, deploy, and host the search/agent serving API.',
+          label: 'Customer Built: Google serves the corpus retrieval API, but customer must build, deploy, and host the end-to-end search/answer API.',
         },
         s4: {
           type: 'managed',
@@ -325,7 +325,7 @@ export default function GenerativeSearchArchitecture({ onSelectScenario }) {
         },
         s5: {
           type: 'partial',
-          label: 'Partially Managed: Agent framework deployed on serverless container runtime (Cloud Run) with session state management.',
+          label: 'Partially Managed: Google ADK provides the built-in Runner and session state management; customer hosts the agent application API.',
         },
       },
     },
@@ -463,18 +463,18 @@ export default function GenerativeSearchArchitecture({ onSelectScenario }) {
         <div className="flex items-start gap-2.5">
           <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <span className="font-bold text-amber-300">Vector Search Serving & Storage:</span>
+            <span className="font-bold text-amber-300">Application Serving vs. Storage (S1 vs. S2):</span>
             <p className="text-slate-300 leading-relaxed">
-              Serving means serving the search or agent API. In Vector Search, serving is <strong>NOT managed</strong> (customer built & hosted). Only storage is <strong>partially managed</strong> (vector index managed by Google, text & metadata managed in customer database).
+              Step 10 (<strong>Serving</strong>) measures serving the end-to-end search or agent application API, which is <strong>Customer Built</strong> in S1 &amp; S2. Meanwhile, <strong>Storage (Step 05)</strong> moves from <strong>Partially Managed</strong> in S1 (index only; requires external Firestore for text) to <strong>Google Managed</strong> in S2 (unified serverless <code>DataObjects</code> storing both vectors and JSON payloads + native BM25/RRF).
             </p>
           </div>
         </div>
         <div className="flex items-start gap-2.5">
           <AlertCircle className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <span className="font-bold text-indigo-300">RAG Engine vs. Agent Search API:</span>
+            <span className="font-bold text-indigo-300">RAG Engine vs. Agent Search API (S3 vs. S4):</span>
             <p className="text-slate-300 leading-relaxed">
-              RAG Engine is a <strong>retrieval-only service</strong> without generation capabilities (customer must construct prompt & call LLM) and does not serve the search directly. Agent Search API is <strong>turnkey</strong> with built-in grounded answer generation & hosted serving.
+              Out-of-the-box, RAG Engine only manages &amp; retrieves corpus chunks; to generate answers, the customer must invoke the <strong>Gemini API separately</strong> (passing <code>VertexRagStore</code> directly to the model as a grounding source, or manually prompting with <code>retrieval_query</code> chunks). Agent Search API is <strong>turnkey</strong> with built-in answer generation &amp; hosted serving in one endpoint.
             </p>
           </div>
         </div>

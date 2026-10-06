@@ -91,7 +91,13 @@ def process_query(req: QueryRequest):
         r = get_retriever()
         corpus = req.corpus or "id"
         result = r.search_and_answer(query=req.query.strip(), top_k=req.top_k or 4, corpus=corpus)
-        return result
+        response_payload = {
+            **result,
+            "execution_mode": result.get("execution_mode", "live_gcp"),
+        }
+        if "fallback_reason" in result and result["fallback_reason"] is not None:
+            response_payload["fallback_reason"] = result["fallback_reason"]
+        return response_payload
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

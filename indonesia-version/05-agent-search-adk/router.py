@@ -92,7 +92,13 @@ def process_query(req: AgentQueryRequest):
         agent = get_agent()
         corpus = req.corpus or "id"
         result = agent.execute(query=req.query.strip(), employee_id=req.employee_id, corpus=corpus)
-        return result
+        response_payload = {
+            **result,
+            "execution_mode": result.get("execution_mode", "live_gcp"),
+        }
+        if "fallback_reason" in result and result["fallback_reason"] is not None:
+            response_payload["fallback_reason"] = result["fallback_reason"]
+        return response_payload
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

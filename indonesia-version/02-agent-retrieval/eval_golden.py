@@ -2,6 +2,7 @@ import json
 import logging
 import sys
 import time
+from pathlib import Path
 from tabulate import tabulate
 from rich.console import Console
 from rich.table import Table
@@ -84,7 +85,7 @@ def run_evaluation():
     console.print(table)
 
     # Save output to JSON
-    output_path = "indonesia-version/02-agent-retrieval/eval_results.json"
+    output_path = Path(__file__).resolve().parent / "eval_results.json"
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
     console.print(f"\n[green]Hasil evaluasi lengkap disimpan ke:[/green] {output_path}")

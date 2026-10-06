@@ -109,8 +109,12 @@ def process_query(req: QueryRequest):
             query=req.query.strip(),
             mode=req.mode or "tool",
             top_k=req.top_k or 4,
+            corpus=req.corpus or "id",
         )
-        return result
+        return {
+            **result,
+            "execution_mode": result.get("execution_mode", "live_gcp"),
+        }
     except Exception as e:
         logger.error("Error processing query: %s", e)
         raise HTTPException(status_code=500, detail=str(e))

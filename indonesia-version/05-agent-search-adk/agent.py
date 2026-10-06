@@ -50,6 +50,7 @@ class ADKHRAgent:
 
         db = HRIS_DB_EN if corpus == "en" else HRIS_DB
         clean_emp = employee_id.upper() if employee_id else "EMP-1042"
+        self.agent.instruction = AGENT_SYSTEM_INSTRUCTION_EN if corpus == "en" else AGENT_SYSTEM_INSTRUCTION
 
         # Otomatis deteksi atau cantumkan ID Karyawan jika dipilih dari UI
         prompt_text = query
@@ -107,10 +108,10 @@ class ADKHRAgent:
                         fn_args = dict(fn_call.args) if hasattr(fn_call, "args") else {}
                         tools_called.append(fn_name)
 
-                        if fn_name == "get_employee_leave_balance" and "employee_id" in fn_args:
+                        if fn_name in ("get_employee_leave_balance", "get_employee_pto_balance") and "employee_id" in fn_args:
                             emp_key = fn_args["employee_id"].strip().upper()
-                            if emp_key in HRIS_DB:
-                                employee_context = HRIS_DB[emp_key]
+                            if emp_key in db:
+                                employee_context = db[emp_key]
 
                         trace.append({
                             "step": step_counter,
@@ -159,12 +160,16 @@ class ADKHRAgent:
                     "description": "Sintesis jawaban akhir yang berdasar aturan dan data riil",
                 })
             else:
-                return self._fallback_execution(query, employee_id, t_start, corpus=corpus)
+                return self._fallback_execution(
+                    query, employee_id, t_start, corpus=corpus, fallback_reason="Empty ADK runner response"
+                )
 
         except Exception as e:
             logger.error(f"Error running ADK Agent: {e}")
             # Fallback penalaran terstruktur jika runner API mengalami kendala jaringan lokal
-            return self._fallback_execution(query, employee_id, t_start, corpus=corpus)
+            return self._fallback_execution(
+                query, employee_id, t_start, corpus=corpus, fallback_reason=str(e)
+            )
 
         total_ms = (time.perf_counter() - t_start) * 1000
         generation_ms = max(0.0, total_ms - retrieval_duration_ms)
@@ -179,9 +184,17 @@ class ADKHRAgent:
             "retrieval_ms": retrieval_duration_ms,
             "generation_ms": generation_ms,
             "mode": "adk_agent_reasoning",
+            "execution_mode": "live_gcp",
         }
 
-    def _fallback_execution(self, query: str, employee_id: Optional[str], t_start: float, corpus: str = "id") -> Dict[str, Any]:
+    def _fallback_execution(
+        self,
+        query: str,
+        employee_id: Optional[str],
+        t_start: float,
+        corpus: str = "id",
+        fallback_reason: Optional[str] = None,
+    ) -> Dict[str, Any]:
         """Fallback cerdas terarah untuk menjamin keandalan demonstrasi jika API offline."""
         clean_emp = employee_id.upper() if employee_id else "EMP-1042"
         q_lower = query.lower()
@@ -239,7 +252,7 @@ class ADKHRAgent:
                     },
                 ]
                 total_ms = (time.perf_counter() - t_start) * 1000
-                return {
+                res = {
                     "query": query,
                     "answer": trace[-1]["content"],
                     "trace": trace,
@@ -249,11 +262,15 @@ class ADKHRAgent:
                     "retrieval_ms": 310.0,
                     "generation_ms": total_ms - 310.0,
                     "mode": "adk_agent_reasoning",
+                    "execution_mode": "fallback_simulation",
                 }
+                if fallback_reason:
+                    res["fallback_reason"] = fallback_reason
+                return res
 
             policy_res = search_company_policy(query, corpus="en")
             total_ms = (time.perf_counter() - t_start) * 1000
-            return {
+            res = {
                 "query": query,
                 "answer": policy_res,
                 "trace": [
@@ -268,7 +285,11 @@ class ADKHRAgent:
                 "retrieval_ms": 240.0,
                 "generation_ms": total_ms - 240.0,
                 "mode": "adk_agent_reasoning",
+                "execution_mode": "fallback_simulation",
             }
+            if fallback_reason:
+                res["fallback_reason"] = fallback_reason
+            return res
 
         # Indonesian Corpus Fallback
         emp_data = HRIS_DB.get(clean_emp, HRIS_DB["EMP-1042"])
@@ -316,7 +337,7 @@ class ADKHRAgent:
                 },
             ]
             total_ms = (time.perf_counter() - t_start) * 1000
-            return {
+            res = {
                 "query": query,
                 "answer": trace[-1]["content"],
                 "trace": trace,
@@ -326,12 +347,16 @@ class ADKHRAgent:
                 "retrieval_ms": 320.0,
                 "generation_ms": total_ms - 320.0,
                 "mode": "adk_agent_reasoning",
+                "execution_mode": "fallback_simulation",
             }
+            if fallback_reason:
+                res["fallback_reason"] = fallback_reason
+            return res
 
         # Jawaban umum lainnya
         policy_res = search_company_policy(query, corpus="id")
         total_ms = (time.perf_counter() - t_start) * 1000
-        return {
+        res = {
             "query": query,
             "answer": policy_res,
             "trace": [
@@ -346,5 +371,9 @@ class ADKHRAgent:
             "retrieval_ms": 250.0,
             "generation_ms": total_ms - 250.0,
             "mode": "adk_agent_reasoning",
+            "execution_mode": "fallback_simulation",
         }
+        if fallback_reason:
+            res["fallback_reason"] = fallback_reason
+        return res
 
