@@ -35,10 +35,7 @@ Dataset versi ini **dilokalkan** untuk perusahaan di Indonesia (BPJS, THR, SPPD,
 
 ## Unified Portal & Cloud Run Deployment
 
-Seluruh 5 skenario terintegrasi ke dalam **Single Unified Portal** (React 19 + Tailwind v4 + FastAPI Gateway):
-- **Live Cloud Run URL:** [https://cymbal-hr-unified-portal-1031440951381.us-central1.run.app](https://cymbal-hr-unified-portal-1031440951381.us-central1.run.app)
-- **API Health Check:** [https://cymbal-hr-unified-portal-1031440951381.us-central1.run.app/api/health](https://cymbal-hr-unified-portal-1031440951381.us-central1.run.app/api/health)
-- **API Swagger Docs:** [https://cymbal-hr-unified-portal-1031440951381.us-central1.run.app/docs](https://cymbal-hr-unified-portal-1031440951381.us-central1.run.app/docs)
+Seluruh 5 skenario terintegrasi ke dalam **Single Unified Portal** (React 19 + Tailwind v4 + FastAPI Gateway).
 
 ### Menjalankan secara Lokal
 ```bash

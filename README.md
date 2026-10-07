@@ -2,8 +2,6 @@
 
 A comprehensive, end-to-end benchmark and interactive portal comparing five generative search and Retrieval-Augmented Generation (RAG) architectural patterns on Google Cloud Platform (GCP).
 
-🌐 **Live Deployed Portal (Cloud Run):** [https://cymbal-hr-unified-portal-1031440951381.us-central1.run.app](https://cymbal-hr-unified-portal-1031440951381.us-central1.run.app)
-
 ---
 
 ## 🏗️ The 5 Architectural Scenarios
